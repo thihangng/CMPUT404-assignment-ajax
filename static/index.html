@@ -61,7 +61,7 @@ function sendJSONXMLHTTPRequest(url, objects, callback) {
     }
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(objects)
+    xhr.send(objects);
 }
 
 
@@ -78,7 +78,7 @@ function drawCircle(context,entity) {
         
         fillStyle = entity["colour"];
         strokeStyle = fillStyle;
-        arc(x, y, entity["radius"])?entity["radius"]:50, 0, 2.0 * Math.PI, false);  
+        arc(x, y, entity["radius"], 0, 2.0 * Math.PI, false);  
         fill();
         
         stroke();                                
@@ -263,11 +263,11 @@ mouse = (function() {
 // Add the application specific mouse listeners!
 //XXX: TODO Make these prettier!
 mouse.mousedowners.push(function(x,y,clicked,e) {
-    addEntityWithoutName({'x':x,'y':y,'colour':colors[Math.floor(Math.random()* colors.length)]} );
+    addEntityWithoutName({'x':x,'y':y,'colour':colors[Math.floor(Math.random()* colors.length)], 'radius': 50} );
 });
 
 mouse.mouseuppers.push(function(x,y,clicked,e) {
-    addEntityWithoutName({'x':x,'y':y,'colour':'red'});
+    addEntityWithoutName({'x':x,'y':y,'colour':'red', 'radius': 50});
 });
 
 mouse.mousedraggers.push(function(x,y,clicked,e) {
@@ -280,9 +280,9 @@ function update() {
     //XXX: TODO Get the world from the webservice using a XMLHTTPRequest
 
     var url = `http://${host}/world`;
-    sendJSONXMLHTTPRequest(url, null,() => {});
+    sendJSONXMLHTTPRequest(url, null, function(data){world=data});
     drawFrame();
-    drawNext = true;
+    // drawNext = true;
     drawNextFrame();
 }
 
