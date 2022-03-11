@@ -71,17 +71,32 @@ world = {};
 function drawCircle(context,entity) {
     with(context) {
         beginPath();              
-        // lineWidth = 3;
+        lineWidth = 3;
         var x = entity["x"];
         var y = entity["y"];
         //moveTo(x,y);
         
         fillStyle = entity["colour"];
         strokeStyle = fillStyle;
-        arc(x, y, entity["radius"], 0, 2.0 * Math.PI, false);  
-        fill();
+        arc(x, y, entity["radius"], 0, 2.0 * Math.PI, true);
         
-        stroke();                                
+        
+        if (entity["radius"] == 50) {
+            moveTo(x+35, y); 
+            arc(x, y, (entity["radius"])/2, 0, Math.PI, false);
+            moveTo(x-10, y-10);
+            arc(x-15, y-10, 5, 0, Math.PI * 2, true);  // Left eye
+            moveTo(x+15, y-10);
+            arc(x+10, y-10, 5, 0, Math.PI * 2, true);
+        }
+        else {
+            setLineDash([4, 2]);
+            fill(); 
+        }    
+        // fill();
+        
+        stroke();   
+                                   
     }
 }
 
